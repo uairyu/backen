@@ -41,6 +41,29 @@
 	* 通过PageHelper插件来处理通过数据库获取文章列表时，动态添加limit子句减少读取数量
 	* 通过POJO来解决前端的请求参数封装对象问题
 
+后端部署时可修改`src\main\resources`下的`druid.properties`数据库连接参数，并需要使用以下sql语句创建2个表
+
+	CREATE TABLE `artical` (
+	  `id` int(11) NOT NULL,
+	  `title` varchar(255) DEFAULT NULL,
+	  `author` varchar(255) DEFAULT NULL,
+	  `date` datetime DEFAULT NULL,
+	  `discusses` int(11) DEFAULT NULL,
+	  `views` int(11) DEFAULT NULL,
+	  `content` text,
+	  PRIMARY KEY (`id`)
+	) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+	CREATE TABLE `user1` (
+	  `id` int(10) NOT NULL AUTO_INCREMENT,
+	  `user` varchar(255) DEFAULT NULL,
+	  `password` varchar(255) DEFAULT NULL,
+	  PRIMARY KEY (`id`),
+	  UNIQUE KEY `uni_user` (`user`) USING HASH
+	) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
+
+
+
 ## 后续可继续进行增加的功能
 * Service层使用spring的声明式事务管理（主要用注解）
 * Dao层再细化出一层缓存层，使用redis实现（例如存储文章简略信息等，但要做好相应更新修改写入等维护工作）
